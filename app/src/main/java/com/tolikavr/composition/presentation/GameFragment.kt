@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.tolikavr.composition.R
 import com.tolikavr.composition.databinding.FragmentGameBinding
 import com.tolikavr.composition.domain.entity.GameResult
@@ -15,6 +16,7 @@ class GameFragment : Fragment() {
 
   private lateinit var level: Level
 
+  private lateinit var viewModel: GameViewModel
   private var _binding: FragmentGameBinding? = null
   private val binding: FragmentGameBinding
     get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
@@ -34,6 +36,7 @@ class GameFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
     binding.tvOption1.setOnClickListener {
       launchGameFinishedFragment(
