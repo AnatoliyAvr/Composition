@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tolikavr.composition.R
 import com.tolikavr.composition.databinding.FragmentGameBinding
 import com.tolikavr.composition.domain.entity.GameResult
@@ -17,11 +18,13 @@ import com.tolikavr.composition.domain.entity.Level
 
 class GameFragment : Fragment() {
 
-  private lateinit var level: Level
+  private val args by navArgs<GameFragmentArgs>()
+
   private val viewModel by lazy {
+//    val args = GameFragmentArgs.fromBundle(requireArguments())
     ViewModelProvider(
       this,
-      GameViewModelFactory(requireActivity().application, level)
+      GameViewModelFactory(requireActivity().application, args.level)
     )[GameViewModel::class.java]
   }
 
@@ -39,11 +42,6 @@ class GameFragment : Fragment() {
   private var _binding: FragmentGameBinding? = null
   private val binding: FragmentGameBinding
     get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    parseArgs()
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -109,27 +107,7 @@ class GameFragment : Fragment() {
     _binding = null
   }
 
-  private fun parseArgs() {
-    requireArguments().getParcelable<Level>(KEY_LEVE)?.let { level = it }
-  }
-
   private fun launchGameFinishedFragment(gameResult: GameResult) {
-    val args = Bundle().apply { putParcelable(GameFinishedFragment.KEY_GAME_RESULT, gameResult) }
-    findNavController().navigate(R.id.action_gameFragment_to_gameFinishedFragment, args)
-  }
-
-  companion object {
-
-    const val NAME = "GameFragment"
-    const val KEY_LEVE = "level"
-
-    fun newInstance(level: Level): GameFragment {
-      return GameFragment().apply {
-        arguments = Bundle().apply {
-          putParcelable(KEY_LEVE, level)
-        }
-      }
-
-    }
+    findNavController().navigate(GameFragmentDirections.actionGameFragmentToGameFinishedFragment(gameResult))
   }
 }
