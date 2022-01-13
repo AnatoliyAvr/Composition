@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tolikavr.composition.R
 import com.tolikavr.composition.databinding.FragmentGameFinishedBinding
-import com.tolikavr.composition.domain.entity.GameResult
 
 class GameFinishedFragment : Fragment() {
 
@@ -34,26 +33,25 @@ class GameFinishedFragment : Fragment() {
   }
 
   private fun bindViews() {
+    binding.gameResult = args.gameResult
     with(binding) {
-      with(args) {
-        emojiResult.setImageResource(getSmileResId())
-        tvRequiredAnswers.text = String.format(
-          getString(R.string.required_score),
-          gameResult.gameSettings.minCountOfRightAnswers
-        )
-        tvScoreAnswers.text = String.format(
-          getString(R.string.score_answers),
-          gameResult.countOfRightAnswers
-        )
-        tvRequiredPercentage.text = String.format(
-          getString(R.string.required_percentage),
-          gameResult.gameSettings.minPercentOfRightAnswers
-        )
-        tvScorePercentage.text = String.format(
-          getString(R.string.score_percentage),
-          getPercentOfRightAnswer()
-        )
-      }
+      emojiResult.setImageResource(getSmileResId())
+//        tvRequiredAnswers.text = String.format(
+//          getString(R.string.required_score),
+//          args.gameResult.gameSettings.minCountOfRightAnswers
+//        )
+//        tvScoreAnswers.text = String.format(
+//          getString(R.string.score_answers),
+//          args.gameResult.countOfRightAnswers
+//        )
+//        tvRequiredPercentage.text = String.format(
+//          getString(R.string.required_percentage),
+//          args.gameResult.gameSettings.minPercentOfRightAnswers
+//        )
+      tvScorePercentage.text = String.format(
+        getString(R.string.score_percentage),
+        getPercentOfRightAnswer()
+      )
     }
   }
 

@@ -40,4 +40,10 @@ data class GameSettings(
       return arrayOfNulls(size)
     }
   }
+
+  val minCountOfRightAnswersString: String
+    get() = minCountOfRightAnswers.toString()
+
+  val minPercentOfRightAnswersString: String
+    get() = minPercentOfRightAnswers.toString()
 }
