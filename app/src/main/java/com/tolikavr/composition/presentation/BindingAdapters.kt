@@ -52,4 +52,11 @@ private fun getSmileResId(winner: Boolean): Int {
   return if (winner) R.drawable.ic_smile else R.drawable.ic_sad
 }
 
+//@BindingAdapter()
+
+//viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
+//  binding.progressBar.setProgress(it, true)
+//}
+
+
 
